@@ -5,7 +5,7 @@
 	"main": "./lib/index.js",
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
-		"test": "jest ",
+		"test": "jest --config jest.config.js",
 		"postinstall": "npm run build"
 	},
 	"keywords": [
@@ -26,5 +26,13 @@
 		"jest": "^25.1.0",
 		"ts-jest": "^25.0.0",
 		"typescript": "^3.6.4"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Duccem/Logger.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Duccem/Logger/issues"
+	},
+	"homepage": "https://github.com/Duccem/Logger#readme"
 }
