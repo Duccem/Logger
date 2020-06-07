@@ -1,5 +1,5 @@
 {
-	"name": "logger",
+	"name": "ducenlogger",
 	"version": "1.0.0",
 	"description": "API de conexion entre las aplicaciones de la suite de administracion y la base de datos madre",
 	"main": "./lib/index.js",
@@ -13,19 +13,19 @@
 		"Color",
 		"Typescript"
 	],
-	"author": "Duccem29",
+	"author": "duccem29",
 	"license": "ISC",
 	"dependencies": {
-		"fs-extra": "^7.0.1",
-		"moment": "^2.24.0",
-		"rimraf": "^3.0.0"
+		"fs-extra": "^9.0.1",
+		"moment": "^2.26.0",
+		"rimraf": "^3.0.2"
 	},
 	"devDependencies": {
-		"@types/fs-extra": "^8.0.0",
+		"@types/fs-extra": "^9.0.1",
 		"@types/jest": "^25.2.3",
-		"jest": "^25.1.0",
-		"ts-jest": "^25.0.0",
-		"typescript": "^3.6.4"
+		"jest": "^26.0.1",
+		"ts-jest": "^26.1.0",
+		"typescript": "^3.9.5"
 	},
 	"repository": {
 		"type": "git",
