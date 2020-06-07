@@ -57,7 +57,7 @@ const decorators: any = {
 /**
  * Options of logger
  */
-export interface ILoggerOptions {
+export interface IDucenloggerOptions {
 	color?: string;
 	type?: string;
 	background?: string;
@@ -67,7 +67,7 @@ export interface ILoggerOptions {
 /**
  * Logger class to print with colors or format epcified
  */
-export class Logger {
+export class Ducenlogger {
 	/**
 	 * Time setter
 	 */
@@ -106,7 +106,7 @@ export class Logger {
 	 * @param msg string message
 	 * @param format color format
 	 */
-	public static color(message: string, options: ILoggerOptions = {}): string {
+	public static color(message: string, options: IDucenloggerOptions = {}): string {
 		let dec = "";
 		if (options.background && Object.keys(background).includes(options.background as string)) {
 			dec += background[options.background as string];
@@ -122,7 +122,7 @@ export class Logger {
 	 * the function responsable for the log
 	 * @param options object tha contain the type, color and message
 	 */
-	public static log(message: any, options: ILoggerOptions = {}) {
+	public static log(message: any, options: IDucenloggerOptions = {}) {
 		options.type = this.selectType(options.type || "");
 		options.color = this.selectColor(options.color || "");
 
