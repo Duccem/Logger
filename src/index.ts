@@ -66,19 +66,37 @@ export interface IDucenloggerOptions {
 }
 
 /**
+ * Config of the logger constructor
+ */
+export interface ILoggerConfig {
+	mode?: string;
+	format?: string;
+}
+
+/**
  * Logger class to print with colors or format epcified
  */
-export class Ducenlogger {
-	constructor(private mode: string = "dev") {}
+export class Logger {
+	private mode: string;
+	private format: string;
 
-	/**
-	 * Time setter
-	 */
-	private date(): string {
-		const currentDate = moment().utc().format("YYYY-MM-DD HH:mm:ss");
-		const intermediateDate = moment.utc(currentDate).toDate();
-		let formattedDate = moment(intermediateDate).local().format("MMMM Do YYYY, h:mm:ss a");
-		return formattedDate;
+	constructor(options?: ILoggerConfig) {
+		this.mode = options?.mode || "dev";
+		this.format = options?.format || "iso";
+	}
+
+	get logMode() {
+		return this.mode;
+	}
+	set logMode(newMode: string) {
+		this.mode = newMode;
+	}
+
+	get dateFormat() {
+		return this.format;
+	}
+	set dateFormat(format) {
+		this.format = format;
 	}
 
 	/**
@@ -106,10 +124,36 @@ export class Ducenlogger {
 	}
 
 	/**
+	 * Time setter
+	 */
+	protected date(): string {
+		const currentDate = moment().utc().format("YYYY-MM-DD HH:mm:ss.SSSSSSSSS");
+		const intermediateDate = moment.utc(currentDate).toDate();
+		let formattedDate = "";
+		switch (this.format) {
+			case "large":
+				formattedDate = moment(intermediateDate).local().format("dddd, MMMM Do YYYY, h:mm:ss.SSS a");
+				break;
+			case "utc":
+				formattedDate = moment(intermediateDate).local().format("ddd, DD MMM YYYY HH:mm:ss.SSS");
+				break;
+			case "clf":
+				formattedDate = moment(intermediateDate).local().format("DD/MMM/YYYY:HH:mm:ss.SSS");
+			case "iso":
+				formattedDate = moment(intermediateDate).local().format("YYYY-MM-DD HH:mm:ss.SSS");
+				break;
+			default:
+				break;
+		}
+
+		return formattedDate;
+	}
+
+	/**
 	 * Function that write the file
 	 * @param message string to write
 	 */
-	private fileWrite(message: any) {
+	protected fileWrite(message: any) {
 		let file = fs.createWriteStream(__dirname + "projectlogs.log", { flags: "a" });
 		file.write(message + "\n");
 	}
@@ -145,3 +189,7 @@ export class Ducenlogger {
 		}
 	}
 }
+
+const ducenlogger = new Logger();
+
+export default ducenlogger;

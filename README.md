@@ -17,8 +17,10 @@ $ npm install ducenlogger
 You can make customs register logs to trace the flow of your project
 
 ```js
-const { Ducenlogger } = require("ducenlogger");
-const logger = new Ducenlogger(); //By default en dev mode, but you can use the prod mod to write the logs in a file
+const logger = require("ducenlogger");
+//By default en dev mode, but you can use the prod mod to write the logs in a file
+
+logger.dateFormat = "iso"; // Format of the date ["iso", "utc", "clf", "large"]
 
 //This make a log with the hashtag [SERVER], the current date and time, color, background and style personalized
 logger.log("Custom log", { color: "info", type: "server", background: "success", decorator: "underscore" });
@@ -80,8 +82,7 @@ The functions of The Logger class apart from the message receives an object of t
 The log function make a log of one register with a flag to identificate the process and a the date time
 
 ```js
-const { Ducenlogger } = require("ducenlogger");
-const logger = new Ducenlogger();
+const logger = require("ducenlogger");
 
 console.log("\n");
 logger.log("Default test"); // Normal message log
@@ -137,8 +138,8 @@ logger.log("Salto de hilo", { type: "database", color: "system" }); //System log
 The text function format a text with color, background and style that you prefer
 
 ```js
-const { Ducenlogger } = require("ducenlogger");
-const { text } = new Ducenlogger();
+const ducenlogger = require("ducenlogger");
+const { text } = ducenlogger;
 
 //Text color change
 let textMessage = text("Text message", { color: "message" }); //Default white
