@@ -72,8 +72,9 @@ export class Ducenlogger {
 	 * Time setter
 	 */
 	private static date(): string {
-		const currentDate = moment().utc();
-		let formattedDate = currentDate.format("MMMM Do YYYY, h:mm:ss a");
+		const currentDate = moment().utc().format("YYYY-MM-DD HH:mm:ss");
+		const intermediateDate = moment.utc(currentDate).toDate();
+		let formattedDate = moment(intermediateDate).local().format("MMMM Do YYYY, h:mm:ss a");
 		return formattedDate;
 	}
 
@@ -126,6 +127,6 @@ export class Ducenlogger {
 		options.type = this.selectType(options.type || "");
 		options.color = this.selectColor(options.color || "");
 
-		console.log(`   ${this.color(options.type, options)} ${this.color("(" + this.date() + ")", options)} ${message}`);
+		console.log(`${this.color(options.type, options)} ${this.color("(" + this.date() + ")", options)} ${message}`);
 	}
 }
