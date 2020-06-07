@@ -1,6 +1,6 @@
 {
 	"name": "ducenlogger",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "API de conexion entre las aplicaciones de la suite de administracion y la base de datos madre",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
