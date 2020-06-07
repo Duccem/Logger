@@ -9,7 +9,7 @@ This is a library to make logs with types, dates and colors on your console or b
 You can install the package with npm
 
 ```
-$ npm install logger
+$ npm install ducenlogger
 ```
 
 ### Usage

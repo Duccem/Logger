@@ -1,8 +1,9 @@
 {
 	"name": "ducenlogger",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "API de conexion entre las aplicaciones de la suite de administracion y la base de datos madre",
-	"main": "./lib/index.js",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
 		"test": "jest --config jest.config.js",
