@@ -18,12 +18,13 @@ You can make customs register logs to trace the flow of your project
 
 ```js
 const { Ducenlogger } = require("ducenlogger");
+const logger = new Ducenlogger(); //By default en dev mode, but you can use the prod mod to write the logs in a file
 
 //This make a log with the hashtag [SERVER], the current date and time, color, background and style personalized
-Ducenlogger.log("Custom log", { color: "info", type: "server", background: "success", decorator: "underscore" });
+logger.log("Custom log", { color: "info", type: "server", background: "success", decorator: "underscore" });
 
 //This create a string with custom style, color, and background
-let customText = Ducenlogger.text("Custom text", {
+let customText = logger.text("Custom text", {
 	color: "error",
 	type: "message",
 	background: "warning",
@@ -80,7 +81,7 @@ The log function make a log of one register with a flag to identificate the proc
 
 ```js
 const { Ducenlogger } = require("ducenlogger");
-const logger = new Ducenlogger(); //By default en dev mode, but you can use the prod mod to write the logs in a file
+const logger = new Ducenlogger();
 
 console.log("\n");
 logger.log("Default test"); // Normal message log
