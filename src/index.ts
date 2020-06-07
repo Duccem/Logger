@@ -1,4 +1,5 @@
 import moment from "moment";
+import fs from "fs-extra";
 /**
  * cont types of logers
  */
@@ -68,10 +69,12 @@ export interface IDucenloggerOptions {
  * Logger class to print with colors or format epcified
  */
 export class Ducenlogger {
+	constructor(private mode: string = "dev") {}
+
 	/**
 	 * Time setter
 	 */
-	private static date(): string {
+	private date(): string {
 		const currentDate = moment().utc().format("YYYY-MM-DD HH:mm:ss");
 		const intermediateDate = moment.utc(currentDate).toDate();
 		let formattedDate = moment(intermediateDate).local().format("MMMM Do YYYY, h:mm:ss a");
@@ -82,7 +85,7 @@ export class Ducenlogger {
 	 * Select the type of log
 	 * @param type the type of log [server, database, network, file, message]
 	 */
-	private static selectType(type: string): string {
+	private selectType(type: string): string {
 		if (Object.keys(types).includes(type)) {
 			return types[type];
 		} else {
@@ -94,7 +97,7 @@ export class Ducenlogger {
 	 * Select the color format of the title message
 	 * @param color the color name
 	 */
-	private static selectColor(color: string): string {
+	private selectColor(color: string): string {
 		if (Object.keys(colors).includes(color)) {
 			return color;
 		} else {
@@ -103,11 +106,20 @@ export class Ducenlogger {
 	}
 
 	/**
+	 * Function that write the file
+	 * @param message string to write
+	 */
+	private fileWrite(message: any) {
+		let file = fs.createWriteStream(__dirname + "projectlogs.log", { flags: "a" });
+		file.write(message + "\n");
+	}
+
+	/**
 	 * return the string colorized
 	 * @param msg string message
 	 * @param format color format
 	 */
-	public static color(message: string, options: IDucenloggerOptions = {}): string {
+	public text(message: string, options: IDucenloggerOptions = {}): string {
 		let dec = "";
 		if (options.background && Object.keys(background).includes(options.background as string)) {
 			dec += background[options.background as string];
@@ -123,10 +135,13 @@ export class Ducenlogger {
 	 * the function responsable for the log
 	 * @param options object tha contain the type, color and message
 	 */
-	public static log(message: any, options: IDucenloggerOptions = {}) {
+	public log(message: any, options: IDucenloggerOptions = {}) {
 		options.type = this.selectType(options.type || "");
 		options.color = this.selectColor(options.color || "");
-
-		console.log(`${this.color(options.type, options)} ${this.color("(" + this.date() + ")", options)} ${message}`);
+		console.log(`${this.text(options.type, options)} ${this.text("(" + this.date() + ")", options)} ${message}`);
+		if (this.mode == "prod") {
+			let log = `${options.type} ${"(" + this.date() + ")"} ${message}`;
+			this.fileWrite(log);
+		}
 	}
 }
