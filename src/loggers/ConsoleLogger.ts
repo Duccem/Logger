@@ -1,27 +1,12 @@
 import * as winston from 'winston';
-import { Logger } from '../types/Logger';
-import { colorFormat } from './formats';
-export interface ConsoleLoggerOptions {}
+import { Logger, LoggerOptions } from '../types/Logger';
+import { format } from './formats';
 export class ConsoleLogger implements Logger {
   private winstonLogger: winston.Logger;
-  constructor(options: winston.LoggerOptions = {}) {
+  constructor({ dateFormat }: LoggerOptions) {
     this.winstonLogger = winston.createLogger({
-      levels: {
-        error: 0,
-        warn: 1,
-        info: 2,
-        http: 3,
-        verbose: 4,
-        debug: 5,
-        silly: 6,
-      },
-      transports: [
-        new winston.transports.Console({
-          level: 'silly',
-        }),
-      ],
-      format: colorFormat,
-      ...options,
+      transports: [new winston.transports.Console({ level: 'silly' })],
+      format: format(dateFormat),
     });
   }
   log(message: any): void {
@@ -39,10 +24,7 @@ export class ConsoleLogger implements Logger {
   verbose(message: any): void {
     this.winstonLogger.verbose(message);
   }
-  request(message: any): void {
-    this.winstonLogger.http(message);
-  }
-  response(message: any): void {
+  http(message: any): void {
     this.winstonLogger.http(message);
   }
 }

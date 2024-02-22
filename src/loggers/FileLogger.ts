@@ -1,18 +1,19 @@
 import * as winston from 'winston';
-import { Logger } from '../types/Logger';
-import { colorFormat, fileFormat } from './formats';
+import { Logger, LoggerOptions } from '../types/Logger';
+import { format } from './formats';
+import { FormatDates } from '../types/DatesFormats';
 
-export interface FileLoggerOptions {
+export interface FileLoggerOptions extends LoggerOptions {
   fileName: string;
 }
 export class FileLogger implements Logger {
   private winstonLogger: winston.Logger;
-  constructor({ fileName }: FileLoggerOptions) {
+  constructor({ fileName, dateFormat }: FileLoggerOptions) {
     const filename = `${fileName}.log`;
     this.winstonLogger = winston.createLogger({
       transports: [
-        new winston.transports.Console({ format: colorFormat }),
-        new winston.transports.File({ filename, format: fileFormat }),
+        new winston.transports.Console({ format: format(dateFormat) }),
+        new winston.transports.File({ filename, format: format(dateFormat) }),
       ],
       level: 'silly',
     });
@@ -33,10 +34,7 @@ export class FileLogger implements Logger {
   verbose(message: any): void {
     this.winstonLogger.verbose(message);
   }
-  request(message: any): void {
-    this.winstonLogger.http(message);
-  }
-  response(message: any): void {
+  http(message: any): void {
     this.winstonLogger.http(message);
   }
 }

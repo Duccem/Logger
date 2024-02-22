@@ -1,25 +1,18 @@
 import * as winston from 'winston';
 import LokiTransport from 'winston-loki';
-import { Logger } from '../types/Logger';
-import { colorFormat } from './formats';
-export interface LokiLoggerOptions {
-  serviceName: string;
-  environment: string;
+import { Logger, LoggerOptions } from '../types/Logger';
+import { format } from './formats';
+export interface LokiLoggerOptions extends LoggerOptions {
+  labels: { [key: string]: string };
   url?: string;
 }
 export class LokiLogger implements Logger {
   private winstonLogger: winston.Logger;
-  constructor({ environment, serviceName, url }: LokiLoggerOptions) {
+  constructor({ labels, url, dateFormat }: LokiLoggerOptions) {
     this.winstonLogger = winston.createLogger({
-      transports: [
-        new winston.transports.Console(),
-        new LokiTransport({
-          host: url,
-          labels: { app: serviceName, env: environment },
-          json: true,
-        }),
-      ],
-      format: colorFormat,
+      level: 'silly',
+      transports: [new winston.transports.Console(), new LokiTransport({ host: url, labels })],
+      format: format(dateFormat),
     });
   }
   log(message: any): void {
@@ -37,10 +30,7 @@ export class LokiLogger implements Logger {
   verbose(message: any): void {
     this.winstonLogger.verbose(message);
   }
-  request(message: any): void {
-    this.winstonLogger.info(message);
-  }
-  response(message: any): void {
+  http(message: any): void {
     this.winstonLogger.http(message);
   }
 }
