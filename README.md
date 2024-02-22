@@ -9,7 +9,7 @@ This is a library to make logs with types, dates and colors on your console or b
 You can install the package with npm
 
 ```
-$ npm install ducenlogger
+$ npm install @duccem/duccem-logger
 ```
 
 ### Usage
@@ -97,4 +97,4 @@ const logger = new FileLogger({
 
 logger.log('Hello world') // you can see a new line of log in grafana with: [info] 2024-02-22 11:06:31.342 Hello world
 ```
-Author: **Duccem29**
+Author: **Duccem**

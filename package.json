@@ -1,6 +1,6 @@
 {
   "name": "@duccem/duccem-logger",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A simple logger for Node.js with colors and timestamps",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Duccem/Logger.git"
+    "url": "git+https://github.com/Duccem/duccem-logger.git"
   },
   "bugs": {
-    "url": "https://github.com/Duccem/Logger/issues"
+    "url": "https://github.com/Duccem/duccem-logger/issues"
   },
-  "homepage": "https://github.com/Duccem/Logger#readme",
+  "homepage": "https://github.com/Duccem/duccem-logger#readme",
   "dependencies": {
     "date-fns": "^3.3.1",
     "date-fns-tz": "^2.0.0",
