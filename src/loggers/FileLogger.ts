@@ -8,7 +8,7 @@ export interface FileLoggerOptions extends LoggerOptions {
 }
 export class FileLogger implements Logger {
   private winstonLogger: winston.Logger;
-  constructor({ fileName, dateFormat }: FileLoggerOptions) {
+  constructor({ fileName, dateFormat }: FileLoggerOptions = { fileName: 'app', dateFormat: FormatDates.ISO }) {
     const filename = `${fileName}.log`;
     this.winstonLogger = winston.createLogger({
       transports: [

@@ -1,9 +1,10 @@
 import * as winston from 'winston';
 import { Logger, LoggerOptions } from '../types/Logger';
 import { format } from './formats';
+import { FormatDates } from '..';
 export class ConsoleLogger implements Logger {
   private winstonLogger: winston.Logger;
-  constructor({ dateFormat }: LoggerOptions) {
+  constructor({ dateFormat }: LoggerOptions = { dateFormat: FormatDates.ISO }) {
     this.winstonLogger = winston.createLogger({
       transports: [new winston.transports.Console({ level: 'silly' })],
       format: format(dateFormat),

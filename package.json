@@ -1,6 +1,6 @@
 {
   "name": "@duccem/duccem-logger",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A simple logger for Node.js with colors and timestamps",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
